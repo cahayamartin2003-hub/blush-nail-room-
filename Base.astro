@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string; schema?: string; image?: string }
+const { title, description, schema, image = '/og-image.jpg' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blush Nail Room">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1E7DF">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/images/me.webp">
+{schema && <script type="application/ld+json" set:html={schema} />}
+</head>
+<body>
+
+<div class="strip"><div class="wrap">
+  <span>Inside Amour Hair Co., 7 Broadwater Street East, Worthing</span>
+  <span class="hrs">Monday to Friday 9am to 6pm, Saturday 10am to 5pm</span>
+</div></div>
+
+<header class="site">
+  <div class="wrap bar">
+    <a href="#top" aria-label="Blush Nail Room, home"><span class="logo" role="img" aria-label="Blush Nail Room"></span></a>
+    <nav class="mainnav" aria-label="Main">
+      <a href="#services">Services</a><a href="#prices">Prices</a><a href="#work">Recent sets</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#find-us">Find us</a>
+    </nav>
+    <div class="bar-right">
+      <details class="menu">
+        <summary>Menu</summary>
+        <nav aria-label="Main, mobile">
+          <a href="#services">Services</a><a href="#prices">Prices</a><a href="#work">Recent sets</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#find-us">Find us</a>
+        </nav>
+      </details>
+      <a class="btn sm" href="https://l.fresha.com/30x4xv43y">Book</a>
+    </div>
+  </div>
+</header>
+
+<slot />
+
+<footer class="site">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="Blush Nail Room"></span>
+    <address>Blush Nail Room, inside Amour Hair Co.<br>7 Broadwater Street East, Worthing BN14 9AA<br><a href="tel:+447395586651">07395 586651</a></address>
+    <div class="flinks">
+      <a href="https://www.instagram.com/blushnailroom_/">Instagram</a>
+      <a href="https://www.tiktok.com/@blushnailroom1">TikTok</a>
+      <a href="https://www.fresha.com/a/blushnailroom-worthing-7-broadwater-street-east-o2xszsjq">Fresha</a>
+      <a href="https://l.fresha.com/30x4xv43y">Book on Fresha</a>
+    </div>
+    <p style="margin:0">© 2026 Blush Nail Room</p>
+  </div>
+</footer>
+
+<script is:inline>
+(function(){
+  var m=document.querySelector('.menu');
+  if(!m)return;
+  m.addEventListener('click',function(e){if(e.target.closest('nav a'))m.removeAttribute('open');});
+  document.addEventListener('click',function(e){if(m.open&&!m.contains(e.target))m.removeAttribute('open');});
+})();
+</script>
+</body>
+</html>
